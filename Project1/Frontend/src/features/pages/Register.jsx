@@ -1,16 +1,25 @@
 import React, { useState } from 'react'
-import '../style/form.SCSS'
-import {Link} from 'react-router'
+import '../style/form.scss'
+import {Link} from 'react-router-dom'
 import axios from 'axios'
+import { useAuth } from '../hooks/useAuth'
 const Register = () => {
 
   const [username,setusername] = useState('');
   const [email,setemail] = useState('');
   const [password,setpassword] = useState('')
+  const { handleRegister} = useAuth();
+
 
   async function handleFormSubmit(e){
     e.preventDefault();
-   
+   await handleRegister(username,email,password)
+   .then(res=>{
+    console.log(res)
+   })
+   setusername('')
+   setemail('')
+   setpassword('')
   }
   return (
   <main>

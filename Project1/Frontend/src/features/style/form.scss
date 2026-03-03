@@ -30,6 +30,9 @@ main{
             font-weight: 500;
             cursor: pointer;
         }
+        button:active{
+    transform: scale(0.9);
+}
       
     }
       .toggleAuthForm{

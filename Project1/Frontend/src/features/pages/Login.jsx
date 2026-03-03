@@ -1,44 +1,65 @@
-import React, { useState } from 'react'
-import '../style/form.SCSS'
-import {Link} from 'react-router'
-import axios from 'axios';
-import { useAuth } from '../hooks/useAuth';
+import React, { useState } from "react";
+import "../style/form.scss";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+import { useAuth } from "../hooks/useAuth";
 
 const Login = () => {
-  const [username,setusername] = useState('');
-    const [password,setpassword] = useState('');
-  const {handleLogin} = useAuth()
-    async function handleFormSubmit(e){
-    e.preventDefault();
-    handleLogin(username,password)
-    .then(res=>{
-      console.log(res)
-    })
-   
-  }
-  return (
-   <main>
-    <div className="form-container">
-      <h1>Login</h1>
-      <form onSubmit={function(e){
-        handleFormSubmit(e);
-      }}>
-        <input type="text" value={username} 
-        onChange={(e)=>{
-          setusername(e.target.value);
-        }}
-        name='username'placeholder='Enter username' />
-        <input type="text" value={password} 
-        onChange={(e)=>{
-          setpassword(e.target.value);
-        }}
-        name='password' placeholder='Enter password' />
-        <button type='submit'>Login</button>
-      </form>
-      <p>Don't have an account? <Link className='toggleAuthForm' to='/register'>Register</Link></p>
-    </div>
-   </main>
+  const [username, setusername] = useState("");
+  const [password, setpassword] = useState("");
+  const { handleLogin, loading } = useAuth();
+  const navigate = useNavigate()
+if(loading){
+  return(
+    <h1>Loading....</h1>
   )
 }
 
-export default Login
+  async function handleFormSubmit(e) {
+    e.preventDefault();
+    await handleLogin(username, password);
+    setusername("");
+    setpassword("");
+    navigate('/');
+  }
+  return (
+    <main>
+      <div className="form-container">
+        <h1>Login</h1>
+        <form
+          onSubmit={function (e) {
+            handleFormSubmit(e);
+          }}
+        >
+          <input
+            type="text"
+            value={username}
+            onChange={(e) => {
+              setusername(e.target.value);
+            }}
+            name="email"
+            placeholder="Enter email"
+          />
+          <input
+            type="text"
+            value={password}
+            onChange={(e) => {
+              setpassword(e.target.value);
+            }}
+            name="password"
+            placeholder="Enter password"
+          />
+          <button type="submit">Login</button>
+        </form>
+        <p>
+          Don't have an account?{" "}
+          <Link className="toggleAuthForm" to="/register">
+            Register
+          </Link>
+        </p>
+      </div>
+    </main>
+  );
+};
+
+export default Login;
