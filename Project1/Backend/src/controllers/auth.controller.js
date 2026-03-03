@@ -6,7 +6,7 @@ async function logincontroller(req, res) {
   const { username, email, password } = req.body;
   const user = await userModel.findOne({
     $or: [{ username: username }, { email: email }],
-  });
+  }).select('+password');
 
   if (!user) {
     return res.status(404).json({
@@ -50,7 +50,7 @@ async function registercontroller(req, res) {
 
   const isUserAlreadyExists = await userModel.findOne({
     $or: [{ username }, { email }],
-  });
+  }).select('+password');
 
   if (isUserAlreadyExists) {
     if (isUserAlreadyExists.email === email) {

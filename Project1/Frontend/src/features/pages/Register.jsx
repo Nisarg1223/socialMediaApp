@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import '../style/form.scss'
-import {Link} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 import axios from 'axios'
 import { useAuth } from '../hooks/useAuth'
 const Register = () => {
@@ -8,9 +8,13 @@ const Register = () => {
   const [username,setusername] = useState('');
   const [email,setemail] = useState('');
   const [password,setpassword] = useState('')
-  const { handleRegister} = useAuth();
-
-
+  const { handleRegister,loading} = useAuth();
+  const Navigate = useNavigate()
+if(loading){
+  return (
+    <h1>Loading....</h1>
+  )
+}
   async function handleFormSubmit(e){
     e.preventDefault();
    await handleRegister(username,email,password)
@@ -20,6 +24,7 @@ const Register = () => {
    setusername('')
    setemail('')
    setpassword('')
+   Navigate('/')
   }
   return (
   <main>
