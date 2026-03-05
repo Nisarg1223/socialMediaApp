@@ -16,6 +16,6 @@ Router.get('/details/:id',identifyUser,postController.getPostDetailsController);
 //post like
 
 Router.post('/like/:postId',identifyUser,postController.likePostController);
-
+Router.post('/unlike/:postId',identifyUser,postController.unlikePostController)
 Router.get('/feed',identifyUser,postController.getFeed);
 module.exports = Router;

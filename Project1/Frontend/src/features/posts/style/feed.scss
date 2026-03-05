@@ -40,11 +40,27 @@
                 display: flex;
                 gap:1rem;
                 align-items: center;
+                justify-content: space-between;
                 img{
                     width:2.5rem;
                     aspect-ratio: 1/1;
                     border-radius: 50%;
                     border:2px solid rgb(19, 19, 19);
+                }
+                .user-left{
+                    display: flex;
+                    align-items: center;
+                    gap:1rem;
+                }
+                .follow-btn{
+                    background-color: #4A5DF9;
+                    color:white;
+                    border: none;
+                    padding-inline:10px;
+                    padding-block:5px ;
+                    border-radius: 10px;
+                    font-weight: 500;
+                    cursor: pointer;
                 }
                 .img-wrapper{
                  background: conic-gradient(rgb(159, 1, 159),rgb(159, 1, 159),red,yellow,rgb(159, 1, 159));

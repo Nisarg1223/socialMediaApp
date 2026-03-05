@@ -1,20 +1,30 @@
 import React from "react";
 import "../style/feed.scss";
-const Post = ({ user, post }) => {
+import { usePost } from "../hooks/usePost";
+
+const Post = ({ user, post,loading,handleLike, handleunLike}) => {
+
   return (
     <div className="post">
       <div className="user">
+        <div className="user-left">
         <div className="img-wrapper">
           <img src={user.profileImage} alt="" />
         </div>
         <p>{user.username}</p>
+        </div>
+        <button className="follow-btn">follow</button>
       </div>
+      
       <img src={post.imgUrl} alt="" />
       <div className="icons">
         <div className="left">
           <button>
             <svg
             className={post.isLiked?'like':''}
+            onClick={function(){
+              post.isLiked?handleunLike(post._id):handleLike(post._id);
+            }}
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
               fill="currentColor"
@@ -55,6 +65,7 @@ const Post = ({ user, post }) => {
       </div>
 
       <div className="bottom">
+        <p>{post.isLiked?'you Liked this post':''}</p>
         <p className="caption">{post.caption}</p>
       </div>
     </div>
