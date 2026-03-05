@@ -14,6 +14,7 @@ const Post = ({ user, post }) => {
         <div className="left">
           <button>
             <svg
+            className={post.isLiked?'like':''}
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
               fill="currentColor"

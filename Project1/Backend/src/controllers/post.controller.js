@@ -87,14 +87,34 @@ async function likePostController(req,res){
         like
     })
 }
-async function getFeed(req,res){
-    const posts = await postModel.find().populate('userId').select('-userId.password');
+async function getFeed(req, res) {
 
+    const user = req.user;
+
+    const posts = await postModel
+        .find()
+        .populate('userId')
+        .select('-userId.password');
+
+    const updatedPosts = await Promise.all(
+        posts.map(async function (elem) {
+  elem = elem.toObject(); // convert mongoose doc to object
+            const isLiked = await likeModel.findOne({
+                user: user.username,
+                post: elem._id
+            });
+
+          
+            elem.isLiked = !!isLiked;
+
+            return elem;
+        })
+    );
 
     res.status(200).json({
-        message:'post fetched successfully',
-        posts
-    })
+        message: 'post fetched successfully',
+        posts: updatedPosts
+    });
 }
 module.exports = {
     createPostController,
