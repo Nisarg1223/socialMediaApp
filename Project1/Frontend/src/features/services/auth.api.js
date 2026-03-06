@@ -21,6 +21,7 @@ export async function login(username,password){
         username,
         password
     })
+  
   return response.data;
    }
    catch(err){}
@@ -28,7 +29,7 @@ export async function login(username,password){
 
 export async function getMe(){
     try{
-        const response = await api.get('/get-me')
+        const response = await api.get('/api/auth/get-me')
         return response.data
     }
     catch(err){

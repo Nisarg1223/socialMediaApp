@@ -52,7 +52,7 @@
                     align-items: center;
                     gap:1rem;
                 }
-                .follow-btn{
+                .follow{
                     background-color: #4A5DF9;
                     color:white;
                     border: none;
@@ -61,6 +61,17 @@
                     border-radius: 10px;
                     font-weight: 500;
                     cursor: pointer;
+                }
+                .normal{
+                    background-color: #191919;
+                    color: white;
+                     border: none;
+                    padding-inline:10px;
+                    padding-block:5px ;
+                    border-radius: 10px;
+                    font-weight: 500;
+                    cursor: pointer;
+
                 }
                 .img-wrapper{
                  background: conic-gradient(rgb(159, 1, 159),rgb(159, 1, 159),red,yellow,rgb(159, 1, 159));

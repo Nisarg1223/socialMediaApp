@@ -2,7 +2,7 @@ import React from "react";
 import "../style/feed.scss";
 import { usePost } from "../hooks/usePost";
 
-const Post = ({ user, post,loading,handleLike, handleunLike}) => {
+const Post = ({ user, post,loading,handleLike, handleunLike,handleFollow, handleunfollowUser,currentUser}) => {
 
   return (
     <div className="post">
@@ -13,7 +13,26 @@ const Post = ({ user, post,loading,handleLike, handleunLike}) => {
         </div>
         <p>{user.username}</p>
         </div>
-        <button className="follow-btn">follow</button>
+       {currentUser?.username !== user.username && (
+  <button
+    className={post.followStatus ? "normal" : "follow"}
+    onClick={() => {
+      if (post.followStatus === "accepted") {
+        handleunfollowUser(post.userId.username);
+      } else if (post.followStatus === "pending") {
+        return;
+      } else {
+        handleFollow(post.userId.username);
+      }
+    }}
+  >
+    {post.followStatus === "accepted"
+      ? "Unfollow"
+      : post.followStatus === "pending"
+      ? "Requested"
+      : "Follow"}
+  </button>
+)}
       </div>
       
       <img src={post.imgUrl} alt="" />

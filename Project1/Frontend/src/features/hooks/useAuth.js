@@ -12,9 +12,10 @@ export function useAuth(){
      try {
        const response = await login(username, password);
    
-       console.log(response);  // Check structure
-   
+
+      
        setuser(response.user);   // ✅ FIXED
+       
        return response;
      } catch (err) {
        console.log(err);

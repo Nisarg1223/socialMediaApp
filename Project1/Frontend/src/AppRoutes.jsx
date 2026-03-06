@@ -4,6 +4,8 @@ import Register from './features/pages/Register.jsx'
 import { useAuth } from './features/hooks/useAuth.js'
 import Feed from './features/posts/pages/Feed.jsx'
 import CreatePost from './features/posts/pages/CreatePost.jsx'
+import Notification from './features/notification/pages/Notification.jsx'
+
 const AppRoutes = () => {
   const {user} = useAuth();
   return (
@@ -22,6 +24,7 @@ const AppRoutes = () => {
       <Route path='/register' element={<Register/>}/>
       <Route path='/feed' element={<Feed/>}/>
       <Route path='/create-post' element={<CreatePost/>}/>
+      <Route path='/notifications' element={<Notification/>}/>
     </Routes>
   )
 }
