@@ -217,10 +217,39 @@ async function rejectRequestController(req, res) {
     rejectRequest,
   });
 }
+async function getSuggestionsController(req, res) {
+  try {
+
+    const loggedInUser = req.user.username;
+
+    const users = await userModel.find(
+      { username: { $ne: loggedInUser } }, 
+      {
+        username: 1,
+        profileImage: 1,
+        bio: 1
+      }
+    );
+
+    res.status(200).json({
+      message: "suggestions fetched successfully",
+      users
+    });
+
+  } catch (error) {
+
+    res.status(500).json({
+      message: "something went wrong",
+      error: error.message
+    });
+
+  }
+}
 module.exports = {
   followUserController,
   unfollowUserController,
   getAllPendingRequestsController,
   acceptRequestController,
   rejectRequestController,
+  getSuggestionsController
 };

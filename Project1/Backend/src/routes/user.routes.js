@@ -19,5 +19,7 @@ userRouter.get('/getallpendingrequests', identifyUser, userController.getAllPend
 userRouter.patch('/acceptrequest/:username',identifyUser,userController.acceptRequestController);
 
 // /api/users/rejectrequest/:username
-userRouter.patch('/rejectrequest/:username',identifyUser,userController.rejectRequestController)
+userRouter.patch('/rejectrequest/:username',identifyUser,userController.rejectRequestController);
+
+userRouter.get("/suggestions",identifyUser,userController.getSuggestionsController);
 module.exports = userRouter;
