@@ -24,7 +24,7 @@ if(loading){
    setusername('')
    setemail('')
    setpassword('')
-   Navigate('/')
+   Navigate('/feed')
   }
   return (
   <main>

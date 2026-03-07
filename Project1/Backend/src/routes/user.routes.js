@@ -12,7 +12,7 @@ userRouter.post('/unfollow/:username', identifyUser, userController.unfollowUser
 
 
 // /api/users/getallpendingrequests
-userRouter.get('/getallpendingrequests/:username', identifyUser, userController.getAllPendingRequestsController);
+userRouter.get('/getallpendingrequests', identifyUser, userController.getAllPendingRequestsController);
 
 
 // /api/users/acceptrequest/:username

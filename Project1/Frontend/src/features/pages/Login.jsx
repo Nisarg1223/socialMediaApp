@@ -20,7 +20,7 @@ if(loading){
     await handleLogin(username, password);
     setusername("");
     setpassword("");
-    navigate('/');
+    navigate('/feed');
   }
   return (
     <main>

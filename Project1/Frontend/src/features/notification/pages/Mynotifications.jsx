@@ -1,12 +1,18 @@
-import React from 'react'
-import { useGetMe } from '../hooks/useGetMe'
-const notification = () => {
-      const { pendingRequests, loading } = useGetMe();
-      if (loading) {
+import React, { useEffect } from "react";
+import { useNotifications } from "../hooks/useNotifications";
+import '../styles/notification.scss'
+const Mynotifications = () => {
+  const { fetchPendingRequests, loading, pendingRequests, handleAccept,handleReject } = useNotifications();
+
+  useEffect(() => {
+    fetchPendingRequests();
+  }, []);
+
+  if (loading) {
     return <h2>Loading notifications...</h2>;
   }
 
-    return (
+  return (
     <div className="notifications-page">
       <h2>Follow Requests</h2>
 
@@ -17,22 +23,29 @@ const notification = () => {
           {pendingRequests.map((req, idx) => {
             return (
               <div className="request" key={idx}>
-                
                 <div className="left">
                   <img
                     src="https://ik.imagekit.io/xboj1v5ab/instagram_default_user.png"
                     alt=""
                   />
-                  <p>
+
+                  <p className="username">
                     <strong>{req.follower}</strong> requested to follow you
                   </p>
                 </div>
 
                 <div className="right">
-                  <button className="accept">Accept</button>
-                  <button className="reject">Reject</button>
+                  <button className="accept"
+                  onClick={function(){
+                    handleAccept(req.follower);
+                  }}
+                  >Accept</button>
+                  <button className="reject"
+                  onClick={function(){
+                    handleReject(req.follower)
+                  }}
+                  >Reject</button>
                 </div>
-
               </div>
             );
           })}
@@ -42,6 +55,4 @@ const notification = () => {
   );
 };
 
-
-
-export default notification
+export default Mynotifications;
