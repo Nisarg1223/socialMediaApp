@@ -1,7 +1,7 @@
 const followModel = require("../models/follow.model.js");
 const { findOne } = require("../models/post.model.js");
 const userModel = require("../models/user.model.js");
-
+const postModel = require('../models/post.model.js');
 async function followUserController(req, res) {
   const followerUsername = req.user.username;
   const followeeUsername = req.params.username;
@@ -245,11 +245,62 @@ async function getSuggestionsController(req, res) {
 
   }
 }
+async function getMyProfileController(req,res){
+  try{
+    const userId = req.user.id;
+    const username = req.user.username;
+
+    // get user
+    const user = await userModel
+      .findById(userId)
+      .select("-password");
+
+    if (!user) {
+      return res.status(404).json({
+        message: "User not found",
+      });
+    }
+
+    // get posts
+    const posts = await postModel
+      .find({ userId: userId })
+      .sort({ createdAt: -1 });
+
+    // followers count
+    const countFollowers = await followModel.countDocuments({
+      followee: username,
+      status: "accepted"
+    });
+
+    // following count
+    const countFollowing = await followModel.countDocuments({
+      follower: username,
+      status: "accepted"
+    });
+
+    res.status(200).json({
+      user,
+      posts,
+      stats: {
+        postCount: posts.length,
+        countFollowers,
+        countFollowing
+      }
+    });
+
+  }
+  catch(err){
+    res.status(500).json({
+      message:'server error'
+    })
+  }
+}
 module.exports = {
   followUserController,
   unfollowUserController,
   getAllPendingRequestsController,
   acceptRequestController,
   rejectRequestController,
-  getSuggestionsController
+  getSuggestionsController,
+  getMyProfileController
 };

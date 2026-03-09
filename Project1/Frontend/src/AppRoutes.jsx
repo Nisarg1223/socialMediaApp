@@ -5,7 +5,7 @@ import { useAuth } from './features/hooks/useAuth.js'
 import Feed from './features/posts/pages/Feed.jsx'
 import CreatePost from './features/posts/pages/CreatePost.jsx'
 import Mynotifications from './features/notification/pages/Mynotifications.jsx'
-
+import Profile from './profile/pages/Profile.jsx'
 const AppRoutes = () => {
   const {user} = useAuth();
   return (
@@ -25,6 +25,7 @@ const AppRoutes = () => {
       <Route path='/feed' element={<Feed/>}/>
       <Route path='/create-post' element={<CreatePost/>}/>
       <Route path='/notifications' element={<Mynotifications/>}/>
+      <Route path='/profile' element = {<Profile/>}/>
     </Routes>
   )
 }

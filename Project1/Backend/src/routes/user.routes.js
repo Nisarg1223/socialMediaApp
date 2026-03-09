@@ -22,4 +22,6 @@ userRouter.patch('/acceptrequest/:username',identifyUser,userController.acceptRe
 userRouter.patch('/rejectrequest/:username',identifyUser,userController.rejectRequestController);
 
 userRouter.get("/suggestions",identifyUser,userController.getSuggestionsController);
+
+userRouter.get('/profile',identifyUser,userController.getMyProfileController)
 module.exports = userRouter;
