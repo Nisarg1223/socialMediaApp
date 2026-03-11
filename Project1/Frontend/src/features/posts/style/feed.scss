@@ -1,122 +1,264 @@
-*{
-    box-sizing: border-box;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-.feed-page{
-    display:flex;
-    justify-content: center;
+// ── Color tokens ──────────────────────────────────────────────
+$bg-app:        #000000;
+$bg-post:       #000000;
+$bg-post-hover: #0a0a0a;
+$border-color:  #262626;
+$text-primary:  #f5f5f5;
+$text-secondary:#a8a8a8;
+$text-muted:    #555555;
+$accent-blue:   #4A5DF9;
+$accent-like:   #ff3040;
+$story-grad:    conic-gradient(#f09433, #e6683c, #dc2743, #cc2366, #bc1888, #f09433);
+
+// ── Feed page wrapper ─────────────────────────────────────────
+.feed-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: $bg-app;
+  min-height: 100vh;
+
+  // ── Nav bar ────────────────────────────────────────────────
+  .nav-bar {
+    display: flex;
     align-items: center;
-    flex-direction: column;
-    .nav-bar{
+    justify-content: space-between;
+    width: 100%;
+    padding: 0.75rem 1rem;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background-color: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid $border-color;
+  }
+
+  // ── Feed container ─────────────────────────────────────────
+  .feed {
+    max-width: 470px;
+    width: 100%;
+    margin: 0 auto;
+    padding-top: 8px;
+
+    // ── Posts list ───────────────────────────────────────────
+    .posts {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      background-color: $bg-app;
+    }
+
+    // ── Single post ──────────────────────────────────────────
+    .post {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      background-color: $bg-post;
+      border: 1px solid $border-color;
+      border-radius: 8px;
+      margin-bottom: 16px;
+      overflow: hidden;
+
+      // ── User row ─────────────────────────────────────────
+      .user {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        width:100%;
-        padding: 1rem;
-   
+        padding: 10px 12px;
+
+        .user-left {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+
+          p {
+            color: $text-primary;
+            font-size: 14px;
+            font-weight: 600;
+            line-height: 18px;
+          }
+        }
+
+        // Story ring gradient wrapper
+        .img-wrapper {
+          background: $story-grad;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 2px;
+          width: 38px;
+          height: 38px;
+          flex-shrink: 0;
+
+          img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 2px solid $bg-post;
+            object-fit: cover;
+            display: block;
+          }
+        }
+
+        // Follow button (blue — not following)
+        .follow {
+          background-color: $accent-blue;
+          color: #ffffff;
+          border: none;
+          padding: 6px 14px;
+          border-radius: 8px;
+          font-size: 13px;
+          font-weight: 600;
+          cursor: pointer;
+          transition: opacity 0.15s ease;
+          white-space: nowrap;
+
+          &:hover {
+            opacity: 0.85;
+          }
+        }
+
+        // Normal / Unfollow / Requested button
+        .normal {
+          background-color: $border-color;
+          color: $text-primary;
+          border: none;
+          padding: 6px 14px;
+          border-radius: 8px;
+          font-size: 13px;
+          font-weight: 600;
+          cursor: pointer;
+          transition: background-color 0.15s ease;
+          white-space: nowrap;
+
+          &:hover {
+            background-color: #333333;
+          }
+        }
+      }
+
+      // ── Post image ───────────────────────────────────────
+      > img {
+        width: 100%;
+        aspect-ratio: 1 / 1;
+        object-fit: cover;
+        display: block;
+        cursor: pointer;
+      }
+
+      // ── Icons row ────────────────────────────────────────
+      .icons {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 6px 12px 2px;
+
+        .left {
+          display: flex;
+          gap: 4px;
+
+          // Filled red when liked
+          .like {
+            color: $accent-like;
+          }
+        }
+
+        svg {
+          width: 24px;
+          height: 24px;
+          cursor: pointer;
+          color: $text-primary;
+          transition: transform 0.1s ease, opacity 0.15s ease;
+
+          &:hover {
+            opacity: 0.7;
+          }
+
+          &:active {
+            transform: scale(0.85);
+          }
+        }
+
+        button {
+          background-color: transparent;
+          border: none;
+          outline: none;
+          padding: 8px 6px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          border-radius: 50%;
+        }
+      }
+
+      // ── Bottom (likes / caption) ─────────────────────────
+      .bottom {
+        padding: 4px 14px 14px;
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+
+        // "you Liked this post" line
+        > p:first-child {
+          color: $text-secondary;
+          font-size: 12px;
+          font-weight: 400;
+          min-height: 16px; // keeps layout stable when empty
+        }
+      }
     }
-    .feed{
-        max-width: 300px;
-        width:100%;
-         margin: 0 auto;
-        
-         .posts{
-            width:100%;
-            display: flex;
-            flex-direction: column;
-            gap:0.2rem;
-            background-color: #191919;
+  }
+}
 
-         }
+// ── Caption ────────────────────────────────────────────────────
+.caption {
+  color: $text-primary;
+  font-size: 14px;
+  line-height: 18px;
+}
 
-         .post{
-            width:100%;
-            display: flex;
-            flex-direction: column;
-            gap:0.5rem;
-            padding:0.5rem;
-            background-color: rgb(19, 19, 19);
-            .user{
-                display: flex;
-                gap:1rem;
-                align-items: center;
-                justify-content: space-between;
-                img{
-                    width:2.5rem;
-                    aspect-ratio: 1/1;
-                    border-radius: 50%;
-                    border:2px solid rgb(19, 19, 19);
-                }
-                .user-left{
-                    display: flex;
-                    align-items: center;
-                    gap:1rem;
-                }
-                .follow{
-                    background-color: #4A5DF9;
-                    color:white;
-                    border: none;
-                    padding-inline:10px;
-                    padding-block:5px ;
-                    border-radius: 10px;
-                    font-weight: 500;
-                    cursor: pointer;
-                }
-                .normal{
-                    background-color: #191919;
-                    color: white;
-                     border: none;
-                    padding-inline:10px;
-                    padding-block:5px ;
-                    border-radius: 10px;
-                    font-weight: 500;
-                    cursor: pointer;
+// ── Global image cursor ────────────────────────────────────────
+img:hover {
+  cursor: pointer;
+}
 
-                }
-                .img-wrapper{
-                 background: conic-gradient(rgb(159, 1, 159),rgb(159, 1, 159),red,yellow,rgb(159, 1, 159));
-                 border-radius: 50%;
-                 display: flex;
-                 align-items: center;
-                 justify-content: center;
-                 padding: 0.1rem;
-                }
-            }
-            .icons{
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
+// ── Responsive ────────────────────────────────────────────────
+@media (max-width: 500px) {
+  .feed-page {
+    .feed {
+      max-width: 100%;
+      padding-top: 0;
 
-                .left{
-                    display: flex;
-                    gap:0.7rem;
-                    
-                    .like{
-                        color: red;
-                    }
-                    
-                }
-                svg{
-                    width:1.2rem;
-                    aspect-ratio: 1/1;
-                    cursor: pointer;
-                    color:white;
-                }
-                button{
-                    background-color: rgba(0, 0, 0, 0);
-                    border: none;
-                    outline: none;
-                }
-            }
-            img{
-                width:100%;
-            }
-         }
+      .post {
+        border-radius: 0;
+        border-left: none;
+        border-right: none;
+        margin-bottom: 8px;
+      }
     }
-}
-img:hover{
-    cursor: pointer;
-}
-.caption{
-    color:white;
+     .icons {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+       .right{
+         width:fit-content;
+
+       }
+     }
+    .nav-bar {
+      padding: 0.6rem 0.75rem;
+    }
+  }
 }

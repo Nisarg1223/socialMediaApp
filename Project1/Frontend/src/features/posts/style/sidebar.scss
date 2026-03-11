@@ -1,0 +1,85 @@
+.sidebar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100vh;
+  width: 70px;
+  background: black;
+  border-right: 1px solid #262626;
+  transition: width 0.25s ease;
+  overflow: hidden;
+  z-index: 1000;
+}
+.icon {
+  font-size: 24px;
+  min-width: 24px;
+}
+
+.menu li {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  color: white;
+  transition: background 0.2s;
+}
+
+.menu li:hover {
+  background: #121212;
+}
+/* expand on hover */
+.sidebar:hover {
+  width: 230px;
+}
+
+.logo {
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  padding: 20px;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.sidebar:hover .logo {
+  opacity: 1;
+}
+
+.menu {
+  list-style: none;
+  padding: 10px;
+}
+
+.menu li {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  color: white;
+  transition: background 0.2s;
+}
+
+.menu li:hover {
+  background: #121212;
+}
+
+.icon {
+  font-size: 22px;
+  min-width: 24px;
+}
+
+/* hide text by default */
+.text {
+  opacity: 0;
+  transition: opacity 0.2s;
+  white-space: nowrap;
+}
+
+/* show text on hover */
+.sidebar:hover .text {
+  opacity: 1;
+}

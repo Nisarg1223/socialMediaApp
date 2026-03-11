@@ -2,48 +2,50 @@ import React from "react";
 import "../style/feed.scss";
 import { usePost } from "../hooks/usePost";
 
-const Post = ({ user, post,loading,handleLike, handleunLike,handleFollow, handleunfollowUser,currentUser}) => {
+const Post = ({ user, post, loading, handleLike, handleunLike, handleFollow, handleunfollowUser, currentUser }) => {
 
   return (
     <div className="post">
       <div className="user">
         <div className="user-left">
-        <div className="img-wrapper">
-          <img src={user.profileImage} alt="" />
+          <div className="img-wrapper">
+            <img src={user.profileImage} alt="" />
+          </div>
+          <p>{user.username}</p>
         </div>
-        <p>{user.username}</p>
-        </div>
-       {currentUser?.username !== user.username && (
-  <button
-    className={post.followStatus ? "normal" : "follow"}
-    onClick={() => {
-      if (post.followStatus === "accepted") {
-        handleunfollowUser(post.userId.username);
-      } else if (post.followStatus === "pending") {
-        return;
-      } else {
-        handleFollow(post.userId.username);
-      }
-    }}
-  >
-    {post.followStatus === "accepted"
-      ? "Unfollow"
-      : post.followStatus === "pending"
-      ? "Requested"
-      : "Follow"}
-  </button>
-)}
+
+        {currentUser?.username !== user.username && (
+          <button
+            className={post.followStatus ? "normal" : "follow"}
+            onClick={() => {
+              if (post.followStatus === "accepted") {
+                handleunfollowUser(post.userId.username);
+              } else if (post.followStatus === "pending") {
+                return;
+              } else {
+                handleFollow(post.userId.username);
+              }
+            }}
+          >
+            {post.followStatus === "accepted"
+              ? "Unfollow"
+              : post.followStatus === "pending"
+              ? "Requested"
+              : "Follow"}
+          </button>
+        )}
       </div>
-      
+
       <img src={post.imgUrl} alt="" />
+
       <div className="icons">
         <div className="left">
           <button>
             <svg
-            className={post.isLiked?'like':''}
-            onClick={function(){
-              post.isLiked?handleunLike(post._id):handleLike(post._id);
-            }}
+              className={post.isLiked ? "like" : ""}
+              onClick={function () {
+                post.isLiked ? handleunLike(post._id) : handleLike(post._id);
+              }}
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
               fill="currentColor"
@@ -51,6 +53,7 @@ const Post = ({ user, post,loading,handleLike, handleunLike,handleFollow, handle
               <path d="M12.001 4.52853C14.35 2.42 17.98 2.49 20.2426 4.75736C22.5053 7.02472 22.583 10.637 20.4786 12.993L11.9999 21.485L3.52138 12.993C1.41705 10.637 1.49571 7.01901 3.75736 4.75736C6.02157 2.49315 9.64519 2.41687 12.001 4.52853ZM18.827 6.1701C17.3279 4.66794 14.9076 4.60701 13.337 6.01687L12.0019 7.21524L10.6661 6.01781C9.09098 4.60597 6.67506 4.66808 5.17157 6.17157C3.68183 7.66131 3.60704 10.0473 4.97993 11.6232L11.9999 18.6543L19.0201 11.6232C20.3935 10.0467 20.319 7.66525 18.827 6.1701Z"></path>
             </svg>
           </button>
+
           <button>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -60,6 +63,7 @@ const Post = ({ user, post,loading,handleLike, handleunLike,handleFollow, handle
               <path d="M7.29117 20.8242L2 22L3.17581 16.7088C2.42544 15.3056 2 13.7025 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22C10.2975 22 8.6944 21.5746 7.29117 20.8242ZM7.58075 18.711L8.23428 19.0605C9.38248 19.6745 10.6655 20 12 20C16.4183 20 20 16.4183 20 12C20 7.58172 16.4183 4 12 4C7.58172 4 4 7.58172 4 12C4 13.3345 4.32549 14.6175 4.93949 15.7657L5.28896 16.4192L4.63416 19.3658L7.58075 18.711Z"></path>
             </svg>
           </button>
+
           <button>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -70,6 +74,7 @@ const Post = ({ user, post,loading,handleLike, handleunLike,handleFollow, handle
             </svg>
           </button>
         </div>
+
         <div className="right">
           <button>
             <svg
@@ -84,7 +89,7 @@ const Post = ({ user, post,loading,handleLike, handleunLike,handleFollow, handle
       </div>
 
       <div className="bottom">
-        <p>{post.isLiked?'you Liked this post':''}</p>
+        <p>{post.isLiked ? "you Liked this post" : ""}</p>
         <p className="caption">{post.caption}</p>
       </div>
     </div>
