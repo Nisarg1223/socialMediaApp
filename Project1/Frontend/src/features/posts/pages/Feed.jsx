@@ -5,6 +5,7 @@ import { usePost } from '../hooks/usePost'
 import Nav from '../components/Nav'
 import Sidebar from '../components/Sidebar'
 import FloatingMessages from '../components/FloatingMessages'
+import Stories from '../components/Stories'
 
 const Feed = () => {
     const {loading,feed,post,handleGetFeed,handleLike, handleunLike,handleunfollowUser,handleFollow,user} = usePost();
@@ -22,6 +23,7 @@ const Feed = () => {
          <Nav/>
          <Sidebar/>
          <FloatingMessages/>
+         <Stories/>
         <div className="feed">
             <div className="posts">
                {feed.map(function(elem,idx){
